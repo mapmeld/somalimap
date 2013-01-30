@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <!-- based on World Tour from http://bl.ocks.org/d/4183330/ -->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <style type="text/css">
+html, body{
+  font-family: verdana, sans-serif;
+}
+    </style>
+  </head>
+  <body>
+    <script src="d3.v3.min.js" type="text/javascript"></script>
+    <script src="queue.v1.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+var width = 960,
+    height = 500;
+
+var planeOn = false;
+
+var ctrlat = 3.875436;
+var ctrlng = 43.811432;
+var geoscale = 16000;
+var geopath = d3.geo.path().projection( d3.geo.mercator().scale(geoscale).center([ctrlng, ctrlat]) );
+
+var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 75.5},
+    width = 960 - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+queue()
+    .defer(d3.json, "content0.geojson")
+    .defer(d3.json, "content1.geojson")
+    .defer(d3.json, "content2.geojson")
+    .defer(d3.json, "content3.geojson")
+    .await(ready);
+
+function ready(error, frame0, frame1, frame2, frame3){
+
+  var regions = svg.selectAll("svg")
+    .data(frame0.features).enter()
+    .append("path")
+    .attr("d", geopath )
+    .style("fill", "#fff")
+    .style("stroke", "#000");
+    
+  setTimeout(function(){
+    var regions = svg.selectAll("svg")
+      .data(frame1.features).enter()
+      .append("path")
+      .attr("d", geopath )
+      .style("fill", "#fff")
+      .style("stroke", "#f00");
+
+    setTimeout(function(){
+      var regions = svg.selectAll("svg")
+        .data(frame2.features).enter()
+        .append("path")
+        .attr("d", geopath )
+        .style("fill", "#fff")
+        .style("stroke", "#0a0");
+
+      setTimeout(function(){
+        var regions = svg.selectAll("svg")
+          .data(frame3.features).enter()
+          .append("path")
+          .attr("d", geopath )
+          .style("fill", "#fff")
+          .style("stroke", "#00a");
+      }, 1250);
+
+
+    }, 1250);
+
+
+  }, 1250);
+  
+  //console.log(myf);
+  //console.log(regions);
+
+   /*
+        return d3.transition()
+          .duration(1250)
+          .tween("rotate", function() {
+            var p = d3.geo.centroid(countries[c]),
+                r = d3.interpolate(projection.rotate(), [-p[0], -p[1]]);
+            console.log(p);
+            return function(t) {
+              projection.rotate(r(t));
+              ctx.clearRect(0, 0, width, height);
+              ctx.fillStyle = "#bbb", ctx.beginPath(), path(land), ctx.fill();
+              ctx.fillStyle = "#f00", ctx.beginPath(), path(countries[c]), ctx.fill();
+              ctx.strokeStyle = "#fff", ctx.lineWidth = .5, ctx.beginPath(), path(borders), ctx.stroke();
+              ctx.strokeStyle = "#000", ctx.lineWidth = 2, ctx.beginPath(), path(globe), ctx.stroke();
+            };
+          });
+      }
+    }
+    // if country was not included, return null
+    return null; */
+};
+    </script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 # SomaliMap
 
-Working toward a JavaScript library to animate changing borders
+Working toward a JavaScript library to animate changing borders: <a href="http://mapmeld.github.com/somalimap/leafletstar.html">See Sample</a>
 
 Border lines 'flow' to their new locations, through their polygon boundaries, using a wayfinding algorithm for games called A* (A Star).
 

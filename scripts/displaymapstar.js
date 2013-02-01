@@ -315,7 +315,7 @@ $(document).ready(function(){
             ) );
           }
           pathll.push( new L.LatLng( end[1], end[0] ) );
-          //map.addLayer(new L.Polyline( pathll ) );
+          //map.addLayer(new L.Polyline( pathll, { weight: 1, color: "#f00" } ) );
           //console.log(start);
           //console.log(end);
           return pathll;
@@ -505,7 +505,21 @@ $(document).ready(function(){
             }
           }
           if(polys.length <= p){
-            var npoly = new L.Polygon( latlngs );
+            var setColors = [
+              "rgb(85,142,33)",
+              "rgb(30,32,11)",
+              "rgb(151,252,80)",
+              "rgb(12,143,241)",
+              "rgb(93,74,120)",
+              "rgb(212,207,0)",
+              "rgb(172,52,125)",
+              "rgb(71,3,93)",
+              "rgb(94,79,212)",
+              "rgb(23,200,254)",
+              "rgb(156,41,55)",
+              "rgb(4,143,222)"
+            ];
+            var npoly = new L.Polygon( latlngs, { weight: 1, fillColor: setColors[p] } );
             map.addLayer(npoly);
             polys.push( npoly );
           }
